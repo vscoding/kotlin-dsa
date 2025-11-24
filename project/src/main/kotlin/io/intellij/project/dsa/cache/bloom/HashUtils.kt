@@ -88,7 +88,6 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return indexFrom(hash)
     }
 
-    // ... existing code ...
     fun hashG2(value: String): Int {
         var hash = 7397
         for (c in value) {
@@ -98,7 +97,6 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return indexFrom(hash)
     }
 
-    // ... existing code ...
     fun hashG3(value: String): Int {
         var hash = 0
         for (c in value) {
@@ -108,7 +106,6 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return indexFrom(hash)
     }
 
-    // ... existing code ...
     fun hashG4(value: String): Int {
         // 近似 Java 的 (h ^ (h >>> 16)) 的扰动
         var h = value.hashCode()
@@ -117,7 +114,6 @@ class HashUtils(private val seed: Int, private val size: Int) {
         val mixed = (seed * max(1, size - 1)) and h
         return indexFrom(mixed)
     }
-    // ... existing code ...
 
     private fun mix1(value: String): Int {
         var hash = 5381 // 常见起始值
@@ -127,7 +123,6 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return toNonNegative(hash)
     }
 
-    // ... existing code ...
     private fun mix2(value: String): Int {
         var hash = 0
         for (c in value) {
@@ -137,7 +132,6 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return toNonNegative(hash xor (seed * 0x85EBCA6B.toInt()))
     }
 
-    // ... existing code ...
     private fun mix3(value: String): Int {
         var hash = 216613626 // FNV-like 起始值（缩短版）
         for (c in value) {
@@ -146,7 +140,6 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return toNonNegative(hash)
     }
 
-    // ... existing code ...
     private fun mix4(value: String): Int {
         // 使用 JDK 的 hashCode 并做一次轻量搅拌
         var h = value.hashCode()
@@ -157,18 +150,16 @@ class HashUtils(private val seed: Int, private val size: Int) {
         h = h xor (h ushr 16)
         return toNonNegative(h)
     }
-    // ... existing code ...
 
     private fun indexFrom(hash: Int): Int = floorMod(hash, size)
 
-    // ... existing code ...
     private fun toNonNegative(x: Int): Int = x and Int.MAX_VALUE
 
-    // ... existing code ...
     private fun floorMod(x: Int, m: Int): Int {
         // 与 Java Math.floorMod 行为一致
         var r = x % m
         if (r < 0) r += m
         return r
     }
+
 }
