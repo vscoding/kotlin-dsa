@@ -1,5 +1,6 @@
 package io.intellij.dsa.graph
 
+import io.intellij.dsa.graph.GraphUtils.buildGraph
 import io.intellij.dsa.graph.compute.Components
 import io.intellij.dsa.graph.compute.CycleAnalyzer
 import io.intellij.dsa.graph.compute.Dijkstra

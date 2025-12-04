@@ -1,7 +1,7 @@
 package io.intellij.dsa.tree.twothree
 
 import io.intellij.dsa.DataStructurePrintable
-import io.intellij.dsa.KVOperation
+import io.intellij.dsa.KVOperator
 
 /**
  * TTTree 二三树，自下而上的平衡
@@ -9,7 +9,7 @@ import io.intellij.dsa.KVOperation
  * @author tech@intellij.io
  * @since 2025-06-03
  */
-interface TTTree<K : Comparable<K>, V> : KVOperation<K, V>, DataStructurePrintable {
+interface TTTree<K : Comparable<K>, V> : KVOperator<K, V>, DataStructurePrintable {
 
     fun getRoot(): TTNode<K, V>?
 

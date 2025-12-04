@@ -1,8 +1,8 @@
 package io.intellij.dsa.tree.bst
 
-import io.intellij.dsa.KVOperation
+import io.intellij.dsa.KVOperator
 
-interface BST<K : Comparable<K>, V> : KVOperation<K, V> {
+interface BST<K : Comparable<K>, V> : KVOperator<K, V> {
 
     /**
      * Retrieves the root node of the binary search tree (BST).

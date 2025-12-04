@@ -1,6 +1,6 @@
 package io.intellij.dsa.skiplist
 
-import io.intellij.dsa.buildSkipList
+import io.intellij.dsa.TreeBuilder
 import org.junit.jupiter.api.Test
 
 /**
@@ -12,7 +12,7 @@ class SkipListTest {
 
     @Test
     fun `test skip list`() {
-        val skipList = buildSkipList<Int, String>()
+        val skipList = TreeBuilder.buildSkipList<Int, String>()
         val intArr = Array(15) { it + 1 }
         val list = intArr.toMutableList()
         list.shuffle() // 打乱
@@ -26,7 +26,7 @@ class SkipListTest {
 
     @Test
     fun `test skip list get`() {
-        val skipList = buildSkipList<Int, String>()
+        val skipList = TreeBuilder.buildSkipList<Int, String>()
 
         val size = 100000
 
@@ -45,7 +45,7 @@ class SkipListTest {
 
     @Test
     fun `test skip list delete`() {
-        val skipList = buildSkipList<Int, String>()
+        val skipList = TreeBuilder.buildSkipList<Int, String>()
 
         val size = 100000
 

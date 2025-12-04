@@ -3,7 +3,7 @@ package io.intellij.dsa
 /**
  * Key-Value DataStructure 统一定义 key value 的统一操作
  */
-interface KVOperation<K, V> {
+interface KVOperator<K, V> {
 
     /**
      * Checks if the data structure contains no elements.

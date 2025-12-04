@@ -5,12 +5,9 @@ package io.intellij.dsa.graph
  *
  * @author tech@intellij.io
  */
-abstract class GraphChecker {
+abstract class GraphChecker(
     protected val graph: Graph
-
-    constructor(graph: Graph) {
-        this.graph = graph
-    }
+) {
 
     fun checkEmpty(): GraphChecker {
         require(!graph.isEmpty()) {

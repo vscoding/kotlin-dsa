@@ -1,5 +1,6 @@
 package io.intellij.dsa.graph
 
+import io.intellij.dsa.graph.GraphUtils.buildGraph
 import org.junit.jupiter.api.Test
 
 /**
@@ -18,13 +19,13 @@ class GraphTest {
 
     @Test
     fun `test show dense graph`() {
-        buildGraph(graphText, directed = false, weighted = true, type = GraphType.DENSE)
+        buildGraph(graphText, directed = false, weighted = true, type = GraphUtils.GraphType.DENSE)
             .showGraph()
     }
 
     @Test
     fun `test show sparse graph`() {
-        buildGraph(graphText, directed = true, weighted = true, type = GraphType.SPARSE)
+        buildGraph(graphText, directed = true, weighted = true, type = GraphUtils.GraphType.SPARSE)
             .showGraph()
     }
 

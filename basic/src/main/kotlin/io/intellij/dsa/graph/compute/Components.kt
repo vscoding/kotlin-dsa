@@ -21,13 +21,11 @@ class Components(graph: Graph) : GraphChecker(graph) {
     fun compute(): Result {
         val result = Result(graph)
         val visited = BooleanArray(graph.getVertexesNum())
-        var count: Int
+        var count = 0
 
-        graph.getVertexes().apply {
-            count = 0
-        }.forEach { vertex ->
-            if (!visited[vertex.id]) {
-                this.dfs(vertex, visited, result)
+        graph.getVertexes().forEach { v ->
+            if (!visited[v.id]) {
+                this.dfs(v, visited, result)
                 count++
                 result.setComponentCount(count)
             }

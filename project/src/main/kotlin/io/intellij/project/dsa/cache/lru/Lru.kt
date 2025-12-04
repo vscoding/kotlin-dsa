@@ -1,7 +1,7 @@
 package io.intellij.project.dsa.cache.lru
 
 import io.intellij.dsa.DataStructurePrintable
-import io.intellij.dsa.KVOperation
+import io.intellij.dsa.KVOperator
 
 /**
  * LRU（Least Recently Used，最近最少使用）是一种常见的缓存淘汰策略：当缓存容量满时，优先淘汰“最近最久没有被访问”的数据项。
@@ -12,6 +12,6 @@ import io.intellij.dsa.KVOperation
  *
  * @author tech@intellij.io
  */
-interface Lru<K, V> : KVOperation<K, V>, DataStructurePrintable {
+interface Lru<K, V> : KVOperator<K, V>, DataStructurePrintable {
 
 }

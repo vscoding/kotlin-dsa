@@ -5,7 +5,6 @@ import io.intellij.dsa.graph.Graph
 import io.intellij.dsa.graph.GraphChecker
 import io.intellij.dsa.graph.Vertex
 import java.util.TreeSet
-import kotlin.collections.ArrayDeque
 
 /**
  * Traverse 图遍历

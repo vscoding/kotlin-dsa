@@ -1,7 +1,6 @@
 package io.intellij.dsa.tree
 
-import io.intellij.dsa.buildAVLTree
-import io.intellij.dsa.buildBasicBST
+import io.intellij.dsa.TreeBuilder
 import io.intellij.dsa.tree.bst.AVLTree
 import io.intellij.dsa.tree.bst.BST
 import io.intellij.dsa.tree.bst.printBST
@@ -18,7 +17,7 @@ class BstTest {
 
     @Test
     fun `test basic bst`() {
-        val basic = buildBasicBST<Int, Int>()
+        val basic = TreeBuilder.buildBasicBST<Int, Int>()
         for (i in 1..7) {
             basic.insert(i, i * 10)
         }
@@ -32,7 +31,7 @@ class BstTest {
 
     @Test
     fun `test avl tree`() {
-        val avl = buildAVLTree<Int, Int>()
+        val avl = TreeBuilder.buildAVLTree<Int, Int>()
         for (i in 1..7) {
             avl.insert(i, i * 10)
             printBST(avl.getRoot())

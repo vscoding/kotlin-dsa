@@ -1,6 +1,6 @@
 package io.intellij.dsa.tree
 
-import io.intellij.dsa.buildTTTree
+import io.intellij.dsa.TreeBuilder
 import io.intellij.dsa.tree.twothree.other.TwoThreeTree
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
@@ -29,7 +29,7 @@ class TwoThreeTest {
 
     @Test
     fun `test two tree tree insert`() {
-        val tree = buildTTTree<Int, String>().apply {
+        val tree = TreeBuilder.buildTTTree<Int, String>().apply {
             for (i in 1..9) {
                 this.insert(i, "value-$i")
             }
