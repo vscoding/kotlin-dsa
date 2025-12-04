@@ -1,7 +1,7 @@
 package io.intellij.dsa.graph.compute
 
 import io.intellij.dsa.graph.Graph
-import io.intellij.dsa.graph.GraphCompute
+import io.intellij.dsa.graph.GraphChecker
 import io.intellij.dsa.graph.Vertex
 import io.intellij.dsa.uf.IndexedUnionFind
 import io.intellij.dsa.uf.UnionFind
@@ -12,7 +12,7 @@ import io.intellij.dsa.uf.UnionFind
  * @author tech@intellij.io
  * @since 2025-05-31
  */
-class Components(graph: Graph) : GraphCompute(graph) {
+class Components(graph: Graph) : GraphChecker(graph) {
 
     init {
         checkEmpty().checkDirected(false)
@@ -51,8 +51,12 @@ class Components(graph: Graph) : GraphCompute(graph) {
     }
 
     class Result(private val graph: Graph) {
+
         private var _count = 0
-        val componentCount: Int get() = _count
+
+        val componentCount: Int
+            get() = _count
+
         internal val uf: UnionFind<Vertex> = IndexedUnionFind(Vertex::id)
 
         internal fun setComponentCount(count: Int) {

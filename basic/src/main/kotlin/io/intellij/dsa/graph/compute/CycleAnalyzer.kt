@@ -2,7 +2,7 @@ package io.intellij.dsa.graph.compute
 
 import io.intellij.dsa.getLogger
 import io.intellij.dsa.graph.Graph
-import io.intellij.dsa.graph.GraphCompute
+import io.intellij.dsa.graph.GraphChecker
 import io.intellij.dsa.graph.Vertex
 
 /**
@@ -11,7 +11,7 @@ import io.intellij.dsa.graph.Vertex
  * @author tech@intellij.io
  * @since 2025-06-01
  */
-class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
+class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
 
     companion object {
         val log = getLogger(CycleAnalyzer::class.java)

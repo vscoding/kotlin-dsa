@@ -1,33 +1,32 @@
 package io.intellij.dsa.graph
 
 /**
- * GraphCompute
+ * GraphChecker
  *
  * @author tech@intellij.io
- * @since 2025-05-31
  */
-abstract class GraphCompute {
+abstract class GraphChecker {
     protected val graph: Graph
 
     constructor(graph: Graph) {
         this.graph = graph
     }
 
-    fun checkEmpty(): GraphCompute {
+    fun checkEmpty(): GraphChecker {
         require(!graph.isEmpty()) {
             "Graph is empty"
         }
         return this
     }
 
-    fun checkDirected(expectedDirected: Boolean): GraphCompute {
+    fun checkDirected(expectedDirected: Boolean): GraphChecker {
         require(graph.isDirected() == expectedDirected) {
             "Graph is not ${if (expectedDirected) "directed" else "undirected"}"
         }
         return this
     }
 
-    fun checkWeighted(expectedWeighted: Boolean): GraphCompute {
+    fun checkWeighted(expectedWeighted: Boolean): GraphChecker {
         require(graph.isWeighted() == expectedWeighted) {
             "Graph is not ${if (expectedWeighted) "weighted" else "unweighted"}"
         }

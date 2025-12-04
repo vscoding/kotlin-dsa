@@ -1,7 +1,7 @@
 package io.intellij.dsa.graph.compute
 
 import io.intellij.dsa.graph.Graph
-import io.intellij.dsa.graph.GraphCompute
+import io.intellij.dsa.graph.GraphChecker
 import io.intellij.dsa.graph.Vertex
 import java.util.*
 
@@ -11,7 +11,7 @@ import java.util.*
  * @author tech@intellij.io
  * @since 2025-06-01
  */
-class TopoSort(graph: Graph) : GraphCompute(graph) {
+class TopoSort(graph: Graph) : GraphChecker(graph) {
 
     init {
         // 必须是有向无环图

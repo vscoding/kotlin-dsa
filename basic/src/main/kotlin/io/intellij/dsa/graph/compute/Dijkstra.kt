@@ -3,7 +3,7 @@ package io.intellij.dsa.graph.compute
 import io.intellij.dsa.graph.DEFAULT_UNWEIGHTED_VALUE
 import io.intellij.dsa.graph.Edge
 import io.intellij.dsa.graph.Graph
-import io.intellij.dsa.graph.GraphCompute
+import io.intellij.dsa.graph.GraphChecker
 import io.intellij.dsa.graph.Vertex
 import java.util.*
 
@@ -13,7 +13,7 @@ import java.util.*
  * @author tech@intellij.io
  * @since 2025-05-31
  */
-class Dijkstra(graph: Graph) : GraphCompute(graph) {
+class Dijkstra(graph: Graph) : GraphChecker(graph) {
 
     init {
         checkEmpty()

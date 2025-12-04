@@ -1,16 +1,21 @@
 package io.intellij.dsa.graph
 
-import io.intellij.dsa.graph.compute.*
+import io.intellij.dsa.graph.compute.Components
+import io.intellij.dsa.graph.compute.CycleAnalyzer
+import io.intellij.dsa.graph.compute.Dijkstra
+import io.intellij.dsa.graph.compute.Mst
+import io.intellij.dsa.graph.compute.TopoSort
+import io.intellij.dsa.graph.compute.Traverse
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 /**
- * GraphComputeTest
+ * GraphAlgorithmTest
  *
  * @author tech@intellij.io
  * @since 2025-05-31
  */
-class GraphComputeTest {
+class GraphAlgorithmTest {
 
     private val traverseGraphText = """
         A B 1

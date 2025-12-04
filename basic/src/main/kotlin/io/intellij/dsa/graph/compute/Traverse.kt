@@ -2,7 +2,7 @@ package io.intellij.dsa.graph.compute
 
 import io.intellij.dsa.graph.Edge
 import io.intellij.dsa.graph.Graph
-import io.intellij.dsa.graph.GraphCompute
+import io.intellij.dsa.graph.GraphChecker
 import io.intellij.dsa.graph.Vertex
 import java.util.TreeSet
 import kotlin.collections.ArrayDeque
@@ -17,7 +17,7 @@ class Traverse(
     graph: Graph,
     private val vertexConsumer: (Vertex) -> Unit,
     private val edgeConsumer: (Edge) -> Unit
-) : GraphCompute(graph) {
+) : GraphChecker(graph) {
 
     init {
         checkEmpty()

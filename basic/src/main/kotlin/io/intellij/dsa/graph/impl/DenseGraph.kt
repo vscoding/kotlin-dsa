@@ -12,23 +12,22 @@ import io.intellij.dsa.graph.VertexIndex
  * @author tech@intellij.io
  * @since 2025-05-29
  */
-class DenseGraph : Graph {
+class DenseGraph(
+    private val directed: Boolean,
+    private val weighted: Boolean
+) : Graph {
 
     companion object {
         val log = getLogger(DenseGraph::class.java)
     }
 
-    private val directed: Boolean
-    private val weighted: Boolean
-
+    // 邻接矩阵，使用 Double? 类型，null 表示无边
     private var adjacencyMatrix: Array<Array<Double?>>
 
     private val vertexIndex = VertexIndex()
     private var edgesCount: Int = 0
 
-    constructor(directed: Boolean, weighted: Boolean) {
-        this.directed = directed
-        this.weighted = weighted
+    init {
         adjacencyMatrix = Array(2) { Array(2) { null } }
     }
 

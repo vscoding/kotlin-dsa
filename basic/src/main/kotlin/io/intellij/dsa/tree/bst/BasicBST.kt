@@ -43,25 +43,34 @@ class BasicBST<K : Comparable<K>, V> : BST<K, V> {
         return node.updateHeight()
     }
 
-    override fun remove(k: K): V? {
-        return getNode(k)?.let { node ->
+    override fun remove(key: K): V? {
+        return getNode(key)?.let { node ->
             val rtV = node.getValue()
-            root = remove(root, k)
+            root = doRemove(root, key)
             rtV
         }
     }
 
-    private fun remove(node: BSTNode<K, V>?, k: K): BSTNode<K, V>? {
+    /**
+     * Removes a node with the specified key from the binary search tree (BST).
+     * If the key exists, the corresponding node is removed, and the tree structure
+     * is adjusted to maintain the BST properties.
+     *
+     * @param node the current node being evaluated during the recursive traversal
+     * @param k the key of the node to be removed
+     * @return the updated subtree after removing the specified node
+     */
+    private fun doRemove(node: BSTNode<K, V>?, k: K): BSTNode<K, V>? {
         if (node == null) {
             return null
         }
         when {
             k < node.getKey() -> {
-                node.setLeft(remove(node.getLeft(), k))
+                node.setLeft(doRemove(node.getLeft(), k))
             }
 
             k > node.getKey() -> {
-                node.setRight(remove(node.getRight(), k))
+                node.setRight(doRemove(node.getRight(), k))
             }
 
             else -> {
@@ -77,14 +86,14 @@ class BasicBST<K : Comparable<K>, V> : BST<K, V> {
                     getMax(leftChild)!!.let { leftMax ->
                         node.setKey(leftMax.getKey())
                             .setValue(leftMax.getValue())
-                            .setLeft(remove(leftChild, leftMax.getKey()))
+                            .setLeft(doRemove(leftChild, leftMax.getKey()))
                     }
                 } ?: run {
                     // 左空+右不空：选择右子树最小值作为替换节点
                     getMin(node.getRight())!!.let { rightMin ->
                         node.setKey(rightMin.getKey())
                             .setValue(rightMin.getValue())
-                            .setRight(remove(node.getRight(), rightMin.getKey()))
+                            .setRight(doRemove(node.getRight(), rightMin.getKey()))
                     }
                 }
             }

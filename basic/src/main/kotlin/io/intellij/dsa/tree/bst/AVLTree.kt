@@ -41,22 +41,31 @@ class AVLTree<K : Comparable<K>, V> : BST<K, V> {
         return node.updateHeight().rebalance(Action.ADD)
     }
 
-    override fun remove(k: K): V? {
-        return getNode(k)?.let { node ->
+    override fun remove(key: K): V? {
+        return getNode(key)?.let { node ->
             val rtV = node.getValue()
-            root = remove(root, k, rtV)
+            root = doRemove(root, key, rtV)
             rtV
         }
     }
 
-    private fun remove(node: BSTNode<K, V>?, k: K, v: V): BSTNode<K, V>? {
+    /**
+     * Removes a key-value pair from the binary search tree, rebalances the tree if necessary,
+     * and updates node heights accordingly.
+     *
+     * @param node the current node being inspected in the tree during removal. Can be null.
+     * @param k the key of the node to be removed.
+     * @param v the value associated with the key that is being removed.
+     * @return the updated subtree root after the removal operation and potential rebalancing.
+     */
+    private fun doRemove(node: BSTNode<K, V>?, k: K, v: V): BSTNode<K, V>? {
         if (node == null) {
             return null
         }
         when {
-            k < node.getKey() -> node.setLeft(remove(node.getLeft(), k, v))
+            k < node.getKey() -> node.setLeft(doRemove(node.getLeft(), k, v))
 
-            k > node.getKey() -> node.setRight(remove(node.getRight(), k, v))
+            k > node.getKey() -> node.setRight(doRemove(node.getRight(), k, v))
 
             else -> {
                 if (node.getLeft() == null && node.getRight() == null) {
@@ -71,13 +80,13 @@ class AVLTree<K : Comparable<K>, V> : BST<K, V> {
 
                     node.setKey(leftMax.getKey())
                         .setValue(leftMax.getValue())
-                    remove(node.getLeft(), leftMax.getKey(), leftMax.getValue())
+                    doRemove(node.getLeft(), leftMax.getKey(), leftMax.getValue())
                 } else {
                     // 左空+右不空
                     val rightMin = getMin(node.getRight())!!
                     node.setKey(rightMin.getKey())
                         .setValue(rightMin.getValue())
-                    node.setRight(remove(node.getRight(), rightMin.getKey(), rightMin.getValue()))
+                    node.setRight(doRemove(node.getRight(), rightMin.getKey(), rightMin.getValue()))
                 }
 
             }

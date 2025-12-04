@@ -4,7 +4,7 @@ import io.intellij.dsa.getLogger
 import io.intellij.dsa.graph.Edge
 import io.intellij.dsa.graph.Graph
 import io.intellij.dsa.graph.VertexIndex
-import java.util.*
+import java.util.TreeMap
 
 /**
  * SparseGraph 稀疏图，使用邻接表实现
@@ -12,24 +12,21 @@ import java.util.*
  * @author tech@intellij.io
  * @since 2025-05-29
  */
-class SparseGraph : Graph {
+class SparseGraph(
+    private val directed: Boolean,
+    private val weighted: Boolean
+) : Graph {
 
     companion object {
         val log = getLogger(DenseGraph::class.java)
     }
 
-    private val directed: Boolean
-    private val weighted: Boolean
-
     private val vertexIndex = VertexIndex()
 
+    // 邻接表，使用 TreeMap 存储边，便于按键排序
     private var adjacencyList: Array<TreeMap<Int, Double>> = Array(0) { TreeMap() }
-    private var edgesCount: Int = 0
 
-    constructor(directed: Boolean, weighted: Boolean) {
-        this.directed = directed
-        this.weighted = weighted
-    }
+    private var edgesCount: Int = 0
 
     override fun isDirected(): Boolean = this.directed
 
