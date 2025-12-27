@@ -1,6 +1,6 @@
 package io.intellij.dsa.sort
 
-import org.apache.commons.lang3.time.StopWatch
+import com.google.common.base.Stopwatch
 
 fun createRandomArray(size: Int, range: Int): Array<Int> {
     return Array(size) { (0..range).random() }
@@ -27,14 +27,13 @@ fun <T : Comparable<T>> sortArr(sort: Sort<T>, array: Array<T>): SortResult {
     val copyOf = array.copyOf()
     copyOf.sort()
 
-    val stopWatch = StopWatch()
-    stopWatch.start()
+    val stopwatch = Stopwatch.createStarted()
     sort.sort(array)
-    stopWatch.stop()
+    stopwatch.stop()
 
     return SortResult(
         type = sort.javaClass,
-        costTime = stopWatch.time,
+        costTime = stopwatch.elapsed(java.util.concurrent.TimeUnit.MILLISECONDS),
         same = sameArray(array, copyOf),
         sorted = sorted(array)
     )

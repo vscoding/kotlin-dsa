@@ -23,8 +23,7 @@ repositories {
 }
 
 dependencies {
-    api(libs.commons.lang3)
-    api(libs.commons.collections4)
+    api(libs.guava)
     api(libs.slf4j.api)
     api(libs.logback.classic)
     api(libs.logback.core)
