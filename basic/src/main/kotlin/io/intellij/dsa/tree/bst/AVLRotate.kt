@@ -27,21 +27,23 @@ internal fun <K : Comparable<K>, V> BSTNode<K, V>.rebalance(action: Action): BST
     log.debug("balanceFactor: {}, action: {}, node: {}", balanceFactor, action, this)
     return when (action) {
         Action.ADD -> {
+            // Rebalances left‑heavy node after insertion via rotations
             when {
-                balanceFactor == 2 && this.getLeft()!!.getBalanceFactor() == 1 -> this.ll()
-                balanceFactor == 2 && this.getLeft()!!.getBalanceFactor() == -1 -> this.lr()
-                balanceFactor == -2 && this.getRight()!!.getBalanceFactor() == -1 -> this.rr()
-                balanceFactor == -2 && this.getRight()!!.getBalanceFactor() == 1 -> this.rl()
+                (balanceFactor == 2 && this.getLeft()!!.getBalanceFactor() == 1) -> this.ll()
+                (balanceFactor == 2 && this.getLeft()!!.getBalanceFactor() == -1) -> this.lr()
+                (balanceFactor == -2 && this.getRight()!!.getBalanceFactor() == -1) -> this.rr()
+                (balanceFactor == -2 && this.getRight()!!.getBalanceFactor() == 1) -> this.rl()
                 else -> throw IllegalStateException("balanceFactor: $balanceFactor, action: $action, node: $this")
             }
         }
 
         Action.REMOVE -> {
+            // Rebalances right‑heavy node after removal via rotations
             when {
-                balanceFactor == 2 && this.getLeft()!!.getBalanceFactor() >= 0 -> this.ll()
-                balanceFactor == 2 && this.getLeft()!!.getBalanceFactor() < 0 -> this.lr()
-                balanceFactor == -2 && this.getRight()!!.getBalanceFactor() <= 0 -> this.rr()
-                balanceFactor == -2 && this.getRight()!!.getBalanceFactor() > 0 -> this.rl()
+                (balanceFactor == 2 && this.getLeft()!!.getBalanceFactor() >= 0) -> this.ll()
+                (balanceFactor == 2 && this.getLeft()!!.getBalanceFactor() < 0) -> this.lr()
+                (balanceFactor == -2 && this.getRight()!!.getBalanceFactor() <= 0) -> this.rr()
+                (balanceFactor == -2 && this.getRight()!!.getBalanceFactor() > 0) -> this.rl()
                 else -> throw IllegalStateException("balanceFactor: $balanceFactor, action: $action, node: $this")
             }
         }
