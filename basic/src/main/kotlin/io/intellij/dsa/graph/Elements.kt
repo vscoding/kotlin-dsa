@@ -3,10 +3,7 @@ package io.intellij.dsa.graph
 import java.util.TreeMap
 
 /**
- * Vertex
- *
- * @author tech@intellij.io
- * @since 2025-05-29
+ * 顶点
  */
 data class Vertex(val name: String, val id: Int) {
     override fun toString(): String {
@@ -14,13 +11,18 @@ data class Vertex(val name: String, val id: Int) {
     }
 }
 
+/**
+ * 边
+ */
 data class Edge(val from: Vertex, val to: Vertex, var weight: Double = 1.0) {
     override fun toString(): String {
         return "E(from=${from.name}, to=${to.name}, weight=$weight)"
     }
 }
 
-// 维护 id 和 name 的索引
+/**
+ * 维护 id 和 name 的索引
+ */
 class VertexIndex {
     // 顶点的表
     private val vertexes: MutableList<Vertex> = mutableListOf()
