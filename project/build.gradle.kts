@@ -2,8 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-group = "io.intellij.kotlin.project.ads"
-version = "1.0.0-SNAPSHOT"
+group = "io.intellij.kotlin.project.dsa"
 
 val projectJdkVersion = libs.versions.java.get().toInt()
 
@@ -15,10 +14,6 @@ java {
 
 kotlin {
     jvmToolchain(projectJdkVersion)
-}
-
-repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/public") }
 }
 
 dependencies {

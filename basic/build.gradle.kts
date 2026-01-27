@@ -3,11 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-group = "io.intellij.kotlin.ads"
-version = "1.0.0-SNAPSHOT"
+group = "io.intellij.kotlin.basic.dsa"
 
 val projectJdkVersion = libs.versions.java.get().toInt()
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(projectJdkVersion)
@@ -16,10 +14,6 @@ java {
 
 kotlin {
     jvmToolchain(projectJdkVersion)
-}
-
-repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/public") }
 }
 
 dependencies {
