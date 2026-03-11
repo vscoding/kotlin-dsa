@@ -53,7 +53,7 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
         marked: MutableSet<String>,
         record: Result,
         depth: Int,
-        quickReturn: Boolean
+        quickBreak: Boolean
     ): Boolean {
         visited.add(from.name)
 
@@ -76,17 +76,19 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
             val to = edge.to
             log.debug("{}开始处理边 {} --> {}", indent, edge.from.name, to.name)
 
+            // Processes edges with DFS recursion or cycle detection
             if (to.name !in visited) {
                 log.debug("{}没有访问过 {} 节点,深度遍历", indent, to.name)
                 val hasCycle =
-                    dfs(to, visited, path.toMutableList(), marked, record, depth + 1, quickReturn)
-                if (hasCycle && quickReturn) {
+                    dfs(to, visited, path.toMutableList(), marked, record, depth + 1, quickBreak)
+                if (hasCycle && quickBreak) {
                     return true
                 }
             } else {
+                // Detects cycles via back edges; records paths or reprocesses visited nodes
                 if (to.name in marked) {
                     log.debug("{}在节点 {} 发现环|处理的边为 {}->{}", indent, from.name, edge.from.name, to.name)
-                    if (quickReturn) {
+                    if (quickBreak) {
                         return true
                     }
                     // 说明有环
@@ -99,7 +101,7 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
                 } else {
                     // important
                     log.debug("{}重新处理 {} 节点; 边为 {}->{}", indent, to.name, edge.from.name, to.name)
-                    dfs(to, visited, path.toMutableList(), marked, record, depth + 1, quickReturn)
+                    dfs(to, visited, path.toMutableList(), marked, record, depth + 1, quickBreak)
                 }
             }
         }
@@ -221,4 +223,5 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
             println()
         }
     }
+
 }
