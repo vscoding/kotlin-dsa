@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test
  */
 class GraphAlgorithmTest {
 
-    private val traverseGraphText = """
+  private val traverseGraphText = """
         A B 1
         B C 2
         C D 1
@@ -26,46 +26,47 @@ class GraphAlgorithmTest {
         F G 1
         """.trimIndent()
 
-    @Test
-    fun `test graph traverse dfs`() {
-        Traverse(
-            buildGraph(traverseGraphText, directed = false, weighted = true),
-            { println("Vertex: ${it.name}") },
-            { println("Edge: ${it.from.name} -> ${it.to.name}, weight: ${it.weight}") }
-        ).dfs()
-    }
+  @Test
+  fun `test graph traverse dfs`() {
+    Traverse(
+      buildGraph(traverseGraphText, directed = false, weighted = true),
+      { println("Vertex: ${it.name}") },
+      { println("Edge: ${it.from.name} -> ${it.to.name}, weight: ${it.weight}") },
+    ).dfs()
+  }
 
-    @Test
-    fun `test graph traverse bfs`() {
-        Traverse(
-            buildGraph(traverseGraphText, directed = false, weighted = true),
-            { println("Vertex: ${it.name}") },
-            { println("Edge: ${it.from.name} -> ${it.to.name}, weight: ${it.weight}") }
-        ).bfs()
-    }
+  @Test
+  fun `test graph traverse bfs`() {
+    Traverse(
+      buildGraph(traverseGraphText, directed = false, weighted = true),
+      { println("Vertex: ${it.name}") },
+      { println("Edge: ${it.from.name} -> ${it.to.name}, weight: ${it.weight}") },
+    ).bfs()
+  }
 
-    @Test
-    fun `test graph components`() {
-        val result = Components(
-            buildGraph(
-                """)
+  @Test
+  fun `test graph components`() {
+    val result = Components(
+      buildGraph(
+        """)
                 A B 1
                 B C 1
                 A C 1
                 D E 1
                 E F 1
                 F G 1
-            """.trimIndent(), directed = false, weighted = true
-            )
-        ).compute()
+            """.trimIndent(),
+        directed = false, weighted = true,
+      ),
+    ).compute()
 
-        println("Component Count: ${result.componentCount}")
+    println("Component Count: ${result.componentCount}")
 
-        Assertions.assertTrue(result.hasPath("A", "C"))
-        Assertions.assertFalse(result.hasPath("A", "G"))
-    }
+    Assertions.assertTrue(result.hasPath("A", "C"))
+    Assertions.assertFalse(result.hasPath("A", "G"))
+  }
 
-    val mstGraphText = """
+  val mstGraphText = """
             0 1 4
             0 5 8
             1 5 11
@@ -78,23 +79,23 @@ class GraphAlgorithmTest {
             4 3 3
             """.trimIndent()
 
-    @Test
-    fun `test graph mst lazy prim`() {
-        Mst(buildGraph(mstGraphText, directed = false, weighted = true))
-            .lazyPrim().printMst()
-    }
+  @Test
+  fun `test graph mst lazy prim`() {
+    Mst(buildGraph(mstGraphText, directed = false, weighted = true))
+      .lazyPrim().printMst()
+  }
 
-    @Test
-    fun `test graph mst kruskal`() {
-        Mst(buildGraph(mstGraphText, directed = false, weighted = true))
-            .kruskal().printMst()
-    }
+  @Test
+  fun `test graph mst kruskal`() {
+    Mst(buildGraph(mstGraphText, directed = false, weighted = true))
+      .kruskal().printMst()
+  }
 
-    @Test
-    fun `test graph topo sort kahn`() {
-        val sort = TopoSort(
-            buildGraph(
-                """
+  @Test
+  fun `test graph topo sort kahn`() {
+    val sort = TopoSort(
+      buildGraph(
+        """
                         0 1 1
                         0 5 1
                         0 6 1
@@ -110,17 +111,18 @@ class GraphAlgorithmTest {
                         9 11 1
                         9 12 1
                         11 12 1
-        """.trimIndent(), directed = true, weighted = false
-            )
-        ).kahn()
+        """.trimIndent(),
+        directed = true, weighted = false,
+      ),
+    ).kahn()
 
-        sort.printTopoSort()
+    sort.printTopoSort()
 
-    }
+  }
 
-    @Test
-    fun `test graph dijkstra`() {
-        val graph = """
+  @Test
+  fun `test graph dijkstra`() {
+    val graph = """
             A B 3
             A C 1
             B D 3
@@ -132,55 +134,57 @@ class GraphAlgorithmTest {
             B F 8
             """.trimIndent()
 
-        val result = Dijkstra(buildGraph(graph, directed = true, weighted = true))
-            .compute("A", null)
+    val result = Dijkstra(buildGraph(graph, directed = true, weighted = true))
+      .compute("A", null)
 
-        listOf("B", "C", "D", "E", "F").map { v ->
-            result.getRoutes(v)
-        }.forEach { route ->
-            result.printRoutes(route)
-        }
-
+    listOf("B", "C", "D", "E", "F").map { v ->
+      result.getRoutes(v)
+    }.forEach { route ->
+      result.printRoutes(route)
     }
 
+  }
 
-    @Test
-    fun `test graph cycle analyzer shared point`() {
-        val analysis = CycleAnalyzer(
-            buildGraph(
-                """
+
+  @Test
+  fun `test graph cycle analyzer shared point`() {
+    val analysis = CycleAnalyzer(
+      buildGraph(
+        """
             A B 1
             B C 1
             C A 1
             C D 1
             D E 1
             E C 1
-            """.trimIndent(), directed = true, weighted = true
-            )
-        ).findCycles()
+            """.trimIndent(),
+        directed = true, weighted = true,
+      ),
+    ).findCycles()
 
-        analysis.printCycles()
+    analysis.printCycles()
 
-        Assertions.assertEquals(2, analysis.cycles.size)
-    }
+    Assertions.assertEquals(2, analysis.cycles.size)
+  }
 
-    @Test
-    fun `test graph cycle analyzer shared edge`() {
-        val analysis = CycleAnalyzer(
-            buildGraph(
-                """
+  @Test
+  fun `test graph cycle analyzer shared edge`() {
+    val analysis = CycleAnalyzer(
+      buildGraph(
+        """
             A B 1
             B C 1
             C D 1
             D A 1
             B D 1
-            """.trimIndent(), directed = true, weighted = true
-            )
-        ).findCycles()
+            """.trimIndent(),
+        directed = true, weighted = true,
+      ),
+    ).findCycles()
 
-        analysis.printCycles()
+    analysis.printCycles()
 
-        Assertions.assertEquals(2, analysis.cycles.size)
-    }
+    Assertions.assertEquals(2, analysis.cycles.size)
+  }
 
 }

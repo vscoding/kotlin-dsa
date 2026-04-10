@@ -10,9 +10,9 @@ import io.intellij.dsa.KVOperator
  */
 interface SkipList<K : Comparable<K>, V> : KVOperator<K, V>, DataStructurePrintable {
 
-    /**
-     * 跳表的层数
-     */
-    fun level(): Int
+  /**
+   * 跳表的层数
+   */
+  fun level(): Int
 
 }

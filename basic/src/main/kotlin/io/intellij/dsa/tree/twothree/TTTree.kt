@@ -11,11 +11,11 @@ import io.intellij.dsa.KVOperator
  */
 interface TTTree<K : Comparable<K>, V> : KVOperator<K, V>, DataStructurePrintable {
 
-    fun getRoot(): TTNode<K, V>?
+  fun getRoot(): TTNode<K, V>?
 
-    /**
-     * 中序遍历
-     */
-    fun inorder(action: (K, V) -> Unit)
+  /**
+   * 中序遍历
+   */
+  fun inorder(action: (K, V) -> Unit)
 
 }

@@ -8,24 +8,24 @@ package io.intellij.dsa.tree.heap
  */
 interface Heap<T> {
 
-    fun isEmpty(): Boolean {
-        return size() == 0
-    }
+  fun isEmpty(): Boolean {
+    return size() == 0
+  }
 
-    fun size(): Int
+  fun size(): Int
 
-    fun add(value: T)
+  fun add(value: T)
 
-    fun peek(): T?
+  fun peek(): T?
 
-    fun extract(): T?
+  fun extract(): T?
 
-    fun getType(): HeapType
+  fun getType(): HeapType
 
-    fun clear()
+  fun clear()
 }
 
 enum class HeapType {
-    MIN_HEAP,
-    MAX_HEAP
+  MIN_HEAP,
+  MAX_HEAP
 }

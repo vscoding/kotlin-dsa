@@ -10,16 +10,16 @@ import org.junit.jupiter.api.Test
  */
 class HuffmanTest {
 
-    @Test
-    fun `test build huffman tree`() {
-        val msg = "abbcccddddeeeeeffffff"
-        // msg 转成 char的计数
-        val counts: Map<Char, Int> = msg.groupingBy { it }.eachCount()
+  @Test
+  fun `test build huffman tree`() {
+    val msg = "abbcccddddeeeeeffffff"
+    // msg 转成 char的计数
+    val counts: Map<Char, Int> = msg.groupingBy { it }.eachCount()
 
-        buildHuffmanTree(counts).let {
-            it.printTree()
-            it.printEncodingTable()
-        }
+    buildHuffmanTree(counts).let {
+      it.printTree()
+      it.printEncodingTable()
     }
+  }
 
 }

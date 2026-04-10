@@ -8,18 +8,18 @@ package io.intellij.dsa.sort
  */
 interface Sort<T : Comparable<T>> {
 
-    /**
-     * Sorts the given array in ascending order.
-     *
-     * @param arr the array to be sorted
-     */
-    fun sort(arr: Array<T>)
+  /**
+   * Sorts the given array in ascending order.
+   *
+   * @param arr the array to be sorted
+   */
+  fun sort(arr: Array<T>)
 
 }
 
 fun <T : Comparable<T>> Array<T>.swap(i: Int, j: Int) {
-    if (i == j) return
-    val temp = this[i]
-    this[i] = this[j]
-    this[j] = temp
+  if (i == j) return
+  val temp = this[i]
+  this[i] = this[j]
+  this[j] = temp
 }

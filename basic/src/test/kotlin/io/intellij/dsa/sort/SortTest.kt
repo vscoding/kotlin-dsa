@@ -15,31 +15,31 @@ import org.junit.jupiter.api.Test
  */
 class SortTest {
 
-    @Test
-    fun `test select sort`() {
-        test(SelectSort())
-    }
+  @Test
+  fun `test select sort`() {
+    test(SelectSort())
+  }
 
-    @Test
-    fun `test insert sort`() {
-        test(InsertSort())
-    }
+  @Test
+  fun `test insert sort`() {
+    test(InsertSort())
+  }
 
-    @Test
-    fun `test merge sort`() {
-        test(MergeSort())
-    }
+  @Test
+  fun `test merge sort`() {
+    test(MergeSort())
+  }
 
-    @Test
-    fun `test quick sort`() {
-        test(QuickSort())
-    }
+  @Test
+  fun `test quick sort`() {
+    test(QuickSort())
+  }
 
-    private fun test(sort: Sort<Int>) {
-        val result = sortArr(sort, createRandomArray(100000, 100000))
-        println(result)
-        Assertions.assertTrue(result.sorted)
-        Assertions.assertTrue(result.same)
-    }
+  private fun test(sort: Sort<Int>) {
+    val result = sortArr(sort, createRandomArray(100000, 100000))
+    println(result)
+    Assertions.assertTrue(result.sorted)
+    Assertions.assertTrue(result.same)
+  }
 
 }

@@ -11,16 +11,16 @@ import io.intellij.dsa.sort.swap
  */
 class InsertSort<T : Comparable<T>> : Sort<T> {
 
-    override fun sort(arr: Array<T>) {
-        if (arr.isEmpty() || arr.size == 1) return
-        val n = arr.size
-        for (i in 1 until n) {
-            for (j in i downTo 1) {
-                if (arr[j] < arr[j - 1]) {
-                    arr.swap(j, j - 1)
-                }
-            }
+  override fun sort(arr: Array<T>) {
+    if (arr.isEmpty() || arr.size == 1) return
+    val n = arr.size
+    for (i in 1 until n) {
+      for (j in i downTo 1) {
+        if (arr[j] < arr[j - 1]) {
+          arr.swap(j, j - 1)
         }
+      }
     }
+  }
 
 }

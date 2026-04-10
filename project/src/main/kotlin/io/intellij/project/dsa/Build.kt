@@ -13,7 +13,7 @@ import io.intellij.project.dsa.cache.lru.LruImpl
  * @return An instance of [Lru] implementing the LRU cache behavior.
  */
 fun <K, V> buildLRU(maxSize: Int): Lru<K, V> {
-    return LruImpl(maxSize)
+  return LruImpl(maxSize)
 }
 
 /**
@@ -24,5 +24,5 @@ fun <K, V> buildLRU(maxSize: Int): Lru<K, V> {
  * @return A newly created instance of a Bloom filter.
  */
 fun buildBloomFilter(expectedInsertions: Int): BloomFilter {
-    return BloomFilterImpl(expectedInsertions)
+  return BloomFilterImpl(expectedInsertions)
 }

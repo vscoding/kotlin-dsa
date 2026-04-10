@@ -7,14 +7,14 @@ package io.intellij.project.dsa.cache.bloom
  */
 interface BloomFilter {
 
-    /**
-     * 新增值
-     */
-    fun add(value: String)
+  /**
+   * 新增值
+   */
+  fun add(value: String)
 
-    /**
-     * 是否包含
-     */
-    fun contains(value: String): Boolean
+  /**
+   * 是否包含
+   */
+  fun contains(value: String): Boolean
 
 }

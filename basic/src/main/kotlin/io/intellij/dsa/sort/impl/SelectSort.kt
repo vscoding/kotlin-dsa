@@ -11,16 +11,16 @@ import io.intellij.dsa.sort.swap
  */
 class SelectSort<T : Comparable<T>> : Sort<T> {
 
-    override fun sort(arr: Array<T>) {
-        if (arr.isEmpty() || arr.size == 1) return
-        val n = arr.size
-        for (i in 0 until n) {
-            for (j in i + 1 until n) {
-                if (arr[j] < arr[i]) {
-                    arr.swap(i, j)
-                }
-            }
+  override fun sort(arr: Array<T>) {
+    if (arr.isEmpty() || arr.size == 1) return
+    val n = arr.size
+    for (i in 0 until n) {
+      for (j in i + 1 until n) {
+        if (arr[j] < arr[i]) {
+          arr.swap(i, j)
         }
+      }
     }
+  }
 
 }

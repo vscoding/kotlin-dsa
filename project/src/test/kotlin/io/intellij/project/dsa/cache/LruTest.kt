@@ -10,15 +10,15 @@ import org.junit.jupiter.api.Test
  */
 class LruTest {
 
-    @Test
-    fun `test lru`() {
-        val maxSize = 20
-        val lru = buildLRU<Int, String>(maxSize)
-        for (i in 1..maxSize * 2) {
-            lru.insert(i, "value-$i")
-            lru.print()
-        }
-        println("lru size = ${lru.size()}")
+  @Test
+  fun `test lru`() {
+    val maxSize = 20
+    val lru = buildLRU<Int, String>(maxSize)
+    for (i in 1..maxSize * 2) {
+      lru.insert(i, "value-$i")
+      lru.print()
     }
+    println("lru size = ${lru.size()}")
+  }
 
 }
