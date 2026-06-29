@@ -27,45 +27,49 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
   fun findCycles(quickReturn: Boolean = false): Result {
     val record = Result(graph.isDirected())
     val vertices = graph.getVertexes()
-    val visited = mutableSetOf<String>()
+    val globalVisited = mutableSetOf<String>() // 全局属性
 
     // 全遍历
     for (vertex in vertices) {
-      if (vertex.name !in visited) {
-        dfs(vertex, visited, mutableListOf(), mutableSetOf(), record, 1, quickReturn)
+      if (vertex.name !in globalVisited) {
+        dfs(vertex, globalVisited, mutableListOf(), mutableSetOf(), record, 1, quickReturn)
       }
     }
     return record
   }
 
   /**
-   * 深度优先搜索
+   * 深度遍历寻找环
    * 保证每个节点都被深度遍历一次
    * 某个节点在遍历的时候
-   * 1. 如果邻居未被访问，则递归调用 DFS 继续搜索（注意传递了路径的副本)
+   * 1. 如果邻居未被访问，则递归调用 DFS 继续搜索（注意传递路径的副本)
    * 2. 如果邻居已被访问且在当前递归栈中，说明找到了一个环。记录从邻居到当前顶点的路径作为环
    * 3. 递归结束后，当前节点出栈
    */
   private fun dfs(
     from: Vertex,
-    visited: MutableSet<String>,
+    globalVisited: MutableSet<String>,
     path: MutableList<Vertex>,
     marked: MutableSet<String>,
     record: Result,
     depth: Int,
     quickBreak: Boolean,
   ): Boolean {
-    visited.add(from.name)
 
-    marked.add(from.name)
-    path.add(from)
+    from.also {
+      globalVisited.add(it.name)
+
+      marked.add(it.name) // 栈上标记
+      path.add(it)
+    }
+
 
     val indent = "$depth  ${"- ".repeat(depth)}"
     log.debug(
       "{}开始遍历 {} 节点|visited={}|marked={}",
       indent,
       from.name,
-      visited.joinToString(" "),
+      globalVisited.joinToString(" "),
       marked.joinToString(" "),
     )
 
@@ -77,10 +81,10 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
       log.debug("{}开始处理边 {} --> {}", indent, edge.from.name, to.name)
 
       // Processes edges with DFS recursion or cycle detection
-      if (to.name !in visited) {
+      if (to.name !in globalVisited) {
         log.debug("{}没有访问过 {} 节点,深度遍历", indent, to.name)
         val hasCycle =
-          dfs(to, visited, path.toMutableList(), marked, record, depth + 1, quickBreak)
+          dfs(to, globalVisited, path.toMutableList(), marked, record, depth + 1, quickBreak)
         if (hasCycle && quickBreak) {
           return true
         }
@@ -101,7 +105,7 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
         } else {
           // important
           log.debug("{}重新处理 {} 节点; 边为 {}->{}", indent, to.name, edge.from.name, to.name)
-          dfs(to, visited, path.toMutableList(), marked, record, depth + 1, quickBreak)
+          dfs(to, globalVisited, path.toMutableList(), marked, record, depth + 1, quickBreak)
         }
       }
     }
@@ -109,12 +113,12 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
     // 出栈
     log.debug(
       "{}出栈 {} 节点，因为不确定是否还有其他点 ??? --> {} |visited={}|marked={}",
-      indent, from.name, from.name, visited.joinToString(" "), marked.joinToString(" "),
+      indent, from.name, from.name, globalVisited.joinToString(" "), marked.joinToString(" "),
     )
     marked.remove(from.name)
     log.debug(
       "{}完成处理 {} 节点|visited={}|marked={}",
-      indent, from.name, visited.joinToString(" "), marked.joinToString(" "),
+      indent, from.name, globalVisited.joinToString(" "), marked.joinToString(" "),
     )
     return record.cycles.isNotEmpty()
   }
