@@ -24,18 +24,18 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
   /**
    * 查找图中所有的环
    */
-  fun findCycles(quickReturn: Boolean = false): Result {
-    val record = Result(graph.isDirected())
+  fun findCycles(quickReturn: Boolean = false): CycleAnalyzeResult {
+    val analyzeResult = CycleAnalyzeResult(graph.isDirected())
     val vertices = graph.getVertexes()
     val globalVisited = mutableSetOf<String>() // 全局属性
 
     // 全遍历
     for (vertex in vertices) {
       if (vertex.name !in globalVisited) {
-        dfs(vertex, globalVisited, mutableListOf(), mutableSetOf(), record, 1, quickReturn)
+        dfs(vertex, globalVisited, mutableListOf(), mutableSetOf(), analyzeResult, 1, quickReturn)
       }
     }
-    return record
+    return analyzeResult
   }
 
   /**
@@ -51,26 +51,27 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
     globalVisited: MutableSet<String>,
     path: MutableList<Vertex>,
     marked: MutableSet<String>,
-    record: Result,
+    record: CycleAnalyzeResult,
     depth: Int,
     quickBreak: Boolean,
   ): Boolean {
 
     from.also {
+      // 全局记录
       globalVisited.add(it.name)
-
-      marked.add(it.name) // 栈上标记
+    }.also {
+      // 栈上记录
+      marked.add(it.name)
       path.add(it)
     }
-
 
     val indent = "$depth  ${"- ".repeat(depth)}"
     log.debug(
       "{}开始遍历 {} 节点|visited={}|marked={}",
       indent,
       from.name,
-      globalVisited.joinToString(" "),
-      marked.joinToString(" "),
+      globalVisited.joinToString(",", "[", "]"),
+      marked.joinToString(",", "[", "]"),
     )
 
     val edges = graph.adjacentEdges(from.id)
@@ -85,16 +86,15 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
         log.debug("{}没有访问过 {} 节点,深度遍历", indent, to.name)
         val hasCycle =
           dfs(to, globalVisited, path.toMutableList(), marked, record, depth + 1, quickBreak)
-        if (hasCycle && quickBreak) {
-          return true
-        }
+
+        // 快速退出的判断
+        if (hasCycle && quickBreak) return true
       } else {
         // Detects cycles via back edges; records paths or reprocesses visited nodes
         if (to.name in marked) {
           log.debug("{}在节点 {} 发现环|处理的边为 {}->{}", indent, from.name, edge.from.name, to.name)
-          if (quickBreak) {
-            return true
-          }
+          if (quickBreak) return true
+
           // 说明有环
           val cycle = mutableListOf<Vertex>()
           val start = path.indexOf(to)
@@ -112,13 +112,13 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
 
     // 出栈
     log.debug(
-      "{}出栈 {} 节点，因为不确定是否还有其他点 ??? --> {} |visited={}|marked={}",
-      indent, from.name, from.name, globalVisited.joinToString(" "), marked.joinToString(" "),
+      "{}出栈 {} 节点，因为不确定是否存在其他点 [?] --> {} |visited={}|marked={}",
+      indent, from.name, from.name, globalVisited.joinToString(",", "[", "]"), marked.joinToString(",", "[", "]"),
     )
     marked.remove(from.name)
     log.debug(
       "{}完成处理 {} 节点|visited={}|marked={}",
-      indent, from.name, globalVisited.joinToString(" "), marked.joinToString(" "),
+      indent, from.name, globalVisited.joinToString(",", "[", "]"), marked.joinToString(",", "[", "]"),
     )
     return record.cycles.isNotEmpty()
   }
@@ -126,7 +126,7 @@ class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {
   /**
    * 环检测结果
    */
-  class Result internal constructor(private val directed: Boolean) {
+  class CycleAnalyzeResult internal constructor(private val directed: Boolean) {
     private val _cycles = mutableListOf<List<Vertex>>()
     val cycles: List<List<Vertex>> get() = _cycles.toList()
 
