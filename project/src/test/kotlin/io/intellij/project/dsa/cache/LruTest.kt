@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 /**
  * LruTest
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 class LruTest {
 

@@ -10,7 +10,7 @@ import io.intellij.dsa.KVOperator
  * - 命中时机：每次 get 或 put 更新已有键，都将该键标记为“最近使用”
  * - 淘汰规则：容量满时移除最久未被访问的那一项。
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 interface Lru<K, V> : KVOperator<K, V>, DataStructurePrintable {
 

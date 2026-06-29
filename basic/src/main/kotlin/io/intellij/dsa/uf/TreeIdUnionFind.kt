@@ -5,7 +5,7 @@ import java.util.TreeMap
 /**
  * TreeIdUnionFind 连接对象的唯一标识符
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-06-01
  */
 class TreeIdUnionFind<T, ID : Comparable<ID>>(

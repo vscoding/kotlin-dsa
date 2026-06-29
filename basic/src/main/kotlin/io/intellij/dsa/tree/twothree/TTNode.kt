@@ -3,7 +3,7 @@ package io.intellij.dsa.tree.twothree
 /**
  * TTNode
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-06-03
  */
 class TTNode<K : Comparable<K>, V> {

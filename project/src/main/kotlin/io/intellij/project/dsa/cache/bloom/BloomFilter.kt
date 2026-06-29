@@ -3,7 +3,7 @@ package io.intellij.project.dsa.cache.bloom
 /**
  * BloomFilter 布隆过滤器。
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 interface BloomFilter {
 

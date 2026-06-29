@@ -3,12 +3,13 @@ package io.intellij.dsa.graph.compute
 import io.intellij.dsa.graph.Graph
 import io.intellij.dsa.graph.GraphChecker
 import io.intellij.dsa.graph.Vertex
-import java.util.*
+import java.util.ArrayDeque
+import java.util.TreeSet
 
 /**
  * TopoSort
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-06-01
  */
 class TopoSort(graph: Graph) : GraphChecker(graph) {
@@ -25,7 +26,7 @@ class TopoSort(graph: Graph) : GraphChecker(graph) {
   /**
    * Kahn 算法实现拓扑排序
    */
-  fun kahn(): Result {
+  fun kahn(): TopoResult {
     // 计算每个顶点的入度
     val inDegree = IntArray(graph.vertexIndex().size())
     graph.getEdges().forEach { edge ->
@@ -35,39 +36,41 @@ class TopoSort(graph: Graph) : GraphChecker(graph) {
     // 找到所有入度为 0 的顶点
     val zeroDegreeVertices = graph.getVertexes()
       .filter { inDegree[it.id] == 0 }
-      .map { VertexWrapper(0, it) }
+      .map { TopoVertex(0, it) }
 
-    val result = Result()
+    val topoResult = TopoResult() // 拓扑排序的结果
     val queue = ArrayDeque(zeroDegreeVertices)
-    val processedVertices = TreeSet<Int>()
+    val processedVertices = TreeSet<Int>() // 记录已处理的顶点，直接使用id
 
     while (queue.isNotEmpty()) {
-      val current = queue.removeFirst()
-      processedVertices.add(current.vertex.id)
-      result.add(current)
+      val first = queue.removeFirst().also {
+        processedVertices.add(it.vertex.id)
+        topoResult.add(it)
+      }
 
       // 处理当前顶点的所有邻接顶点
-      graph.adjacentEdges(current.vertex.id).forEach { edge ->
+      graph.adj(first.vertex.id).forEach { edge ->
         val neighbor = edge.to
         if (neighbor.id !in processedVertices) {
           inDegree[neighbor.id]--
           // 如果邻接顶点的入度变为 0，则加入队列
           if (inDegree[neighbor.id] == 0) {
-            queue.offer(VertexWrapper(current.degree + 1, neighbor))
+            queue.offer(TopoVertex(first.degree + 1, neighbor))
           }
         }
       }
     }
 
-    return result
+    return topoResult
   }
 
   /**
-   * 顶点包装器，包含入度信息
+   * 拓扑排序的顶点包装器
+   *
    * @param degree 入度
    * @param vertex 顶点
    */
-  data class VertexWrapper(val degree: Int, val vertex: Vertex) {
+  data class TopoVertex(val degree: Int, val vertex: Vertex) {
     override fun toString(): String {
       return "${vertex.name}($degree)"
     }
@@ -76,12 +79,12 @@ class TopoSort(graph: Graph) : GraphChecker(graph) {
   /**
    * 拓扑排序结果
    */
-  class Result {
-    private val _sorted = mutableListOf<VertexWrapper>()
-    val sorted: List<VertexWrapper> get() = _sorted.toList()
+  class TopoResult {
+    private val _sorted = mutableListOf<TopoVertex>()
+    val sorted: List<TopoVertex> get() = _sorted.toList()
 
-    internal fun add(vertexWrapper: VertexWrapper) {
-      _sorted.add(vertexWrapper)
+    internal fun add(topoVertex: TopoVertex) {
+      _sorted.add(topoVertex)
     }
 
     /**
@@ -94,7 +97,7 @@ class TopoSort(graph: Graph) : GraphChecker(graph) {
     /**
      * 打印拓扑排序结果
      */
-    private fun printTopoSort(sorted: List<VertexWrapper>) {
+    private fun printTopoSort(sorted: List<TopoVertex>) {
       if (sorted.isEmpty()) {
         println("No vertices in the graph")
         return

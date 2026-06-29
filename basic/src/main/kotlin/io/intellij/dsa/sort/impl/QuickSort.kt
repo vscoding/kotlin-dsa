@@ -6,7 +6,7 @@ import io.intellij.dsa.sort.swap
 /**
  * QuickSort
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-30
  */
 class QuickSort<T : Comparable<T>> : Sort<T> {

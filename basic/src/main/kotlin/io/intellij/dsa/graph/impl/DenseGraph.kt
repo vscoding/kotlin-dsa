@@ -9,7 +9,7 @@ import io.intellij.dsa.graph.VertexIndex
 /**
  * DenseGraph 稠密图，邻接矩阵
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-29
  */
 class DenseGraph(

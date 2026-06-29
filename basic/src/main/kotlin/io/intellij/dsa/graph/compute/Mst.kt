@@ -11,7 +11,7 @@ import java.util.PriorityQueue
 /**
  * Mst 最小生成树
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-31
  */
 class Mst(graph: Graph) : GraphChecker(graph) {

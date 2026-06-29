@@ -3,7 +3,7 @@ package io.intellij.dsa.tree.bst
 /**
  * BasicBST
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-30
  */
 class BasicBST<K : Comparable<K>, V> : BST<K, V> {

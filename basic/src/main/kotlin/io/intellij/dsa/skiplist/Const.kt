@@ -3,7 +3,7 @@ package io.intellij.dsa.skiplist
 /**
  * Skip List Const
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 
 /**

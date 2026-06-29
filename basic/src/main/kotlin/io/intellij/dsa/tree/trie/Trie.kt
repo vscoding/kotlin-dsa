@@ -3,7 +3,7 @@ package io.intellij.dsa.tree.trie
 /**
  * Trie
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 interface Trie {
 

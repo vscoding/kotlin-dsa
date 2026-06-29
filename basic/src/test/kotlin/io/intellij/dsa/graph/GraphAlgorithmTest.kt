@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 /**
  * GraphAlgorithmTest
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-31
  */
 class GraphAlgorithmTest {

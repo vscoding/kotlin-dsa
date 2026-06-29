@@ -3,7 +3,7 @@ package io.intellij.dsa.tree.twothree.other
 /**
  * TwoThreeTree
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-06-02
  */
 class TwoThreeTree {

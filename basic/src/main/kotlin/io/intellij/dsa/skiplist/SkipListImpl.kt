@@ -5,7 +5,7 @@ import kotlin.random.Random
 /**
  * SkipListImpl
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 class SkipListImpl<K : Comparable<K>, V>(
   val maxLevel: Int = DEFAULT_MAX_LEVEL,

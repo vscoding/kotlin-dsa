@@ -5,7 +5,7 @@ import java.util.TreeMap
 /**
  * TreeUnionFind 连接对象本身
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-06-01
  */
 class TreeUnionFind<T> : UnionFind<T> {

@@ -5,7 +5,7 @@ import io.intellij.dsa.getLogger
 /**
  * IndexedUnionFind
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-31
  */
 class IndexedUnionFind<T> : UnionFind<T> {

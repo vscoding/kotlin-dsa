@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 /**
  * TrieTest
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 class TrieTest {
 

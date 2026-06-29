@@ -6,7 +6,7 @@ import io.intellij.dsa.sort.swap
 /**
  * SelectSort 选择排序
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-30
  */
 class SelectSort<T : Comparable<T>> : Sort<T> {

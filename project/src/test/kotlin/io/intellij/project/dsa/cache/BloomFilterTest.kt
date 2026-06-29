@@ -8,7 +8,7 @@ import kotlin.test.Test
 /**
  * BloomFilterTest
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 class BloomFilterTest {
 

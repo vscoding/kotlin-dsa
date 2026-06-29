@@ -3,7 +3,7 @@ package io.intellij.dsa.sort
 /**
  * Sort
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-30
  */
 interface Sort<T : Comparable<T>> {

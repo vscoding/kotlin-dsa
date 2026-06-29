@@ -3,7 +3,7 @@ package io.intellij.dsa.tree.huffman
 /**
  * Huffman 哈夫曼树接口
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 interface HuffmanTree {
 

@@ -3,7 +3,7 @@ package io.intellij.project.dsa.cache.lru
 /**
  * LruImpl LRU的实现主要是基于 HashMap + 双向链表
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 class LruImpl<K, V>(
   val maxSize: Int = 100,

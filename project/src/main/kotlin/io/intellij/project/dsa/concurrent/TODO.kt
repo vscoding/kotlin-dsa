@@ -3,5 +3,5 @@ package io.intellij.project.dsa.concurrent
 /**
  * TODO
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */

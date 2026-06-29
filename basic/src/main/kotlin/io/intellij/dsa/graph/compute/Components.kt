@@ -9,7 +9,7 @@ import io.intellij.dsa.uf.UnionFind
 /**
  * Components 无向图连通分量
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-31
  */
 class Components(graph: Graph) : GraphChecker(graph) {

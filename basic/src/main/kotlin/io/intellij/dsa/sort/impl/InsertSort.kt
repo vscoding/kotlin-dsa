@@ -6,7 +6,7 @@ import io.intellij.dsa.sort.swap
 /**
  * InsertSort 插入排序
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-30
  */
 class InsertSort<T : Comparable<T>> : Sort<T> {

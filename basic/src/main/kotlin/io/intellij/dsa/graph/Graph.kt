@@ -7,7 +7,7 @@ const val DEFAULT_UNWEIGHTED_VALUE = 1.0
 /**
  * Graph
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-29
  */
 interface Graph {
@@ -113,6 +113,21 @@ interface Graph {
    * @return a list of Edge objects representing the edges adjacent to the specified vertex
    */
   fun adjacentEdges(id: Int): List<Edge>
+
+
+  /**
+   * alias of adjacentEdges
+   */
+  fun adj(name: String): List<Edge> {
+    return adjacentEdges(name)
+  }
+
+  /**
+   * alias of adjacentEdges
+   */
+  fun adj(id: Int): List<Edge> {
+    return adjacentEdges(id)
+  }
 
 
   /**

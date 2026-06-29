@@ -6,7 +6,7 @@ import java.util.ArrayDeque
 /**
  * RecursiveTest
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 class RecursiveTest {
 

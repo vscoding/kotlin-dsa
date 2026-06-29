@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 /**
  * HeapTest
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-31
  */
 class HeapTest {

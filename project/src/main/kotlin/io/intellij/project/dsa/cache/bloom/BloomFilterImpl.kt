@@ -5,7 +5,7 @@ import java.util.BitSet
 /**
  * BloomFilterImpl
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 class BloomFilterImpl(bitCount: Int) : BloomFilter {
   private val hashUtils = HashUtils(1, bitCount)

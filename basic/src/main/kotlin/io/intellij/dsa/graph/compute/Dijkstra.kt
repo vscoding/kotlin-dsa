@@ -10,7 +10,7 @@ import java.util.PriorityQueue
 /**
  * Dijkstra 最短路径算法
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-31
  */
 class Dijkstra(graph: Graph) : GraphChecker(graph) {

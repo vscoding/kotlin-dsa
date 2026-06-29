@@ -8,7 +8,7 @@ import io.intellij.dsa.graph.Vertex
 /**
  * 环分析器
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-06-01
  */
 class CycleAnalyzer(graph: Graph) : GraphChecker(graph) {

@@ -5,7 +5,7 @@ import io.intellij.dsa.sort.Sort
 /**
  * MergeSort
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-30
  */
 class MergeSort<T : Comparable<T>> : Sort<T> {

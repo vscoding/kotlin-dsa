@@ -7,7 +7,7 @@ import java.io.InputStreamReader
 /**
  * TrieImpl
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 class StringTrie : Trie {
 

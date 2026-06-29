@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 /**
  * SkipListTest
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 class SkipListTest {
 

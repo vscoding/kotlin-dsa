@@ -3,7 +3,7 @@ package io.intellij.dsa.tree.bst
 /**
  * BSTNode
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-31
  */
 interface BSTNode<K : Comparable<K>, V> {

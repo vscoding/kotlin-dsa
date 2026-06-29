@@ -3,7 +3,7 @@ package io.intellij.dsa.graph
 /**
  * GraphChecker
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  */
 abstract class GraphChecker(
   protected val graph: Graph,

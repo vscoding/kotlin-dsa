@@ -5,7 +5,7 @@ import kotlin.math.max
 /**
  * AVLTree
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-30
  */
 class AVLTree<K : Comparable<K>, V> : BST<K, V> {

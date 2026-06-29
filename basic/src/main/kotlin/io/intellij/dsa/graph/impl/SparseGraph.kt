@@ -9,7 +9,7 @@ import java.util.TreeMap
 /**
  * SparseGraph 稀疏图，使用邻接表实现
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-05-29
  */
 class SparseGraph(

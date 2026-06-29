@@ -5,7 +5,7 @@ import kotlin.math.max
 /**
  * NumberTriangles 数字三角形
  *
- * @author tech@intellij.io
+ * @author dev@intellij.io
  * @since 2025-06-03
  */
 class NumberTriangles {
