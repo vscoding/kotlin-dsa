@@ -57,7 +57,7 @@ interface KVOperator<K, V> {
   fun clear()
 }
 
-interface DataStructurePrintable {
+interface Printable {
   fun print() {
     TODO("Not yet implemented")
   }

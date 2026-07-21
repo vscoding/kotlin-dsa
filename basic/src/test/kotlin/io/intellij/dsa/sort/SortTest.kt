@@ -1,5 +1,6 @@
 package io.intellij.dsa.sort
 
+import io.intellij.dsa.getLogger
 import io.intellij.dsa.sort.impl.InsertSort
 import io.intellij.dsa.sort.impl.MergeSort
 import io.intellij.dsa.sort.impl.QuickSort
@@ -14,6 +15,10 @@ import org.junit.jupiter.api.Test
  * @since 2025-05-30
  */
 class SortTest {
+
+  companion object {
+    private val log = getLogger(SortTest::class.java)
+  }
 
   @Test
   fun `test select sort`() {
@@ -36,10 +41,10 @@ class SortTest {
   }
 
   private fun test(sort: Sort<Int>) {
-    val result = sortArr(sort, createRandomArray(100000, 100000))
-    println(result)
-    Assertions.assertTrue(result.sorted)
-    Assertions.assertTrue(result.same)
+    val sortResult = sortArr(sort, createRandomArray(100000, 100000))
+    log.info("$sortResult")
+    Assertions.assertTrue(sortResult.sorted)
+    Assertions.assertTrue(sortResult.same)
   }
 
 }

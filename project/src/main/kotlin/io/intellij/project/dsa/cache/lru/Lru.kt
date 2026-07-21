@@ -1,6 +1,6 @@
 package io.intellij.project.dsa.cache.lru
 
-import io.intellij.dsa.DataStructurePrintable
+import io.intellij.dsa.Printable
 import io.intellij.dsa.KVOperator
 
 /**
@@ -12,6 +12,6 @@ import io.intellij.dsa.KVOperator
  *
  * @author dev@intellij.io
  */
-interface Lru<K, V> : KVOperator<K, V>, DataStructurePrintable {
+interface Lru<K, V> : KVOperator<K, V>, Printable {
 
 }

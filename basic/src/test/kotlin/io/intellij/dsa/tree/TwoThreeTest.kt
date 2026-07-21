@@ -1,7 +1,6 @@
 package io.intellij.dsa.tree
 
-import io.intellij.dsa.TreeBuilder
-import io.intellij.dsa.tree.twothree.other.TwoThreeTree
+import io.intellij.dsa.tree.twothree.sample.TwoThreeTree
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 

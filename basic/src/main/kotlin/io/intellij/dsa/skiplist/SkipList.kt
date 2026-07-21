@@ -1,6 +1,6 @@
 package io.intellij.dsa.skiplist
 
-import io.intellij.dsa.DataStructurePrintable
+import io.intellij.dsa.Printable
 import io.intellij.dsa.KVOperator
 
 /**
@@ -8,7 +8,7 @@ import io.intellij.dsa.KVOperator
  *
  * @author dev@intellij.io
  */
-interface SkipList<K : Comparable<K>, V> : KVOperator<K, V>, DataStructurePrintable {
+interface SkipList<K : Comparable<K>, V> : KVOperator<K, V>, Printable {
 
   /**
    * 跳表的层数

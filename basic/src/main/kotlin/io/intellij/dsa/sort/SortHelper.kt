@@ -41,11 +41,6 @@ fun <T : Comparable<T>> sortArr(sort: Sort<T>, array: Array<T>): SortResult {
 
 data class SortResult(val type: Class<*>, val costTime: Long, val same: Boolean, val sorted: Boolean) {
   override fun toString(): String {
-    return """
-            Sort Method  : ${type.name}
-            Cost Time(ms): $costTime
-            Sorted       : $sorted
-            Same         : $same
-        """.trimIndent()
+    return "SortResult(type=${type.simpleName}, costTime=$costTime, same=$same, sorted=$sorted)"
   }
 }

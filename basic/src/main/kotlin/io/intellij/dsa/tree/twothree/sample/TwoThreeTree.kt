@@ -1,4 +1,4 @@
-package io.intellij.dsa.tree.twothree.other
+package io.intellij.dsa.tree.twothree.sample
 
 /**
  * TwoThreeTree

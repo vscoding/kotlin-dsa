@@ -1,4 +1,4 @@
-package io.intellij.dsa
+package io.intellij.dsa.tree
 
 import io.intellij.dsa.skiplist.DEFAULT_MAX_LEVEL
 import io.intellij.dsa.skiplist.DEFAULT_P

@@ -1,5 +1,6 @@
 package io.intellij.dsa.recursion
 
+import io.intellij.dsa.getLogger
 import org.junit.jupiter.api.Test
 import java.util.ArrayDeque
 
@@ -9,6 +10,10 @@ import java.util.ArrayDeque
  * @author dev@intellij.io
  */
 class RecursiveTest {
+
+  companion object {
+    private val log = getLogger(RecursiveTest::class.java)
+  }
 
   private fun fibonacciR(n: Int): Long {
     return if (n == 1 || n == 2) {
@@ -32,15 +37,15 @@ class RecursiveTest {
 
   @Test
   fun `test fibonacci`() {
-    println(fibonacciW(50))
+    log.info("${fibonacciW(50)}")
 
-    println(fibonacciW(100))
+    log.info("${fibonacciW(100)}")
   }
 
   data class Node(val value: String, val children: List<Node>)
 
   private fun traversalR(node: Node, depth: Int = 0) {
-    println("  ".repeat(depth) + node.value)
+    log.info("  ".repeat(depth) + node.value)
     node.children.forEach { child ->
       traversalR(child, depth + 1)
     }
@@ -50,7 +55,7 @@ class RecursiveTest {
     val queue = ArrayDeque<Node>().apply { add(node) }
     while (queue.isNotEmpty()) {
       val current = queue.removeFirst()
-      println(current.value)
+      log.info(current.value)
       queue.addAll(current.children)
     }
   }

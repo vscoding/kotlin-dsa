@@ -1,6 +1,6 @@
 package io.intellij.dsa.skiplist
 
-import io.intellij.dsa.TreeBuilder
+import io.intellij.dsa.tree.TreeBuilder
 import org.junit.jupiter.api.Test
 
 /**

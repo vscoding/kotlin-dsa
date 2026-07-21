@@ -64,8 +64,7 @@ class Components(graph: Graph) : GraphChecker(graph) {
     fun hasPath(src: String, dest: String): Boolean {
       val srcV = graph.vertexIndex().getVertex(src)
       val destV = graph.vertexIndex().getVertex(dest)
-      if (srcV == null || destV == null) return false
-      return uf.isConnected(srcV, destV)
+      return !(srcV == null || destV == null) && uf.isConnected(srcV, destV)
     }
 
   }

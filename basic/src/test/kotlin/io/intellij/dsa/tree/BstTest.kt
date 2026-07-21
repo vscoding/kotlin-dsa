@@ -1,6 +1,5 @@
 package io.intellij.dsa.tree
 
-import io.intellij.dsa.TreeBuilder
 import io.intellij.dsa.tree.bst.AVLTree
 import io.intellij.dsa.tree.bst.BST
 import io.intellij.dsa.tree.bst.printBST
