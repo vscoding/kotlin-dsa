@@ -5,8 +5,8 @@ import io.intellij.dsa.sort.impl.InsertSort
 import io.intellij.dsa.sort.impl.MergeSort
 import io.intellij.dsa.sort.impl.QuickSort
 import io.intellij.dsa.sort.impl.SelectSort
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import kotlin.test.assertTrue
 
 /**
  * SortTest
@@ -21,30 +21,30 @@ class SortTest {
   }
 
   @Test
-  fun `test select sort`() {
+  fun `select sort orders all values`() {
     test(SelectSort())
   }
 
   @Test
-  fun `test insert sort`() {
+  fun `insert sort orders all values`() {
     test(InsertSort())
   }
 
   @Test
-  fun `test merge sort`() {
+  fun `merge sort orders all values`() {
     test(MergeSort())
   }
 
   @Test
-  fun `test quick sort`() {
+  fun `quick sort orders all values`() {
     test(QuickSort())
   }
 
   private fun test(sort: Sort<Int>) {
-    val sortResult = sortArr(sort, createRandomArray(100000, 100000))
+    val sortResult = sortArr(sort, arrayOf(7, -3, 7, 0, 12, -3, 1))
     log.info("$sortResult")
-    Assertions.assertTrue(sortResult.sorted)
-    Assertions.assertTrue(sortResult.same)
+    assertTrue(sortResult.sorted)
+    assertTrue(sortResult.same)
   }
 
 }

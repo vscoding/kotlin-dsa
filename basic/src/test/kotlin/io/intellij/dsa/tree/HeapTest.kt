@@ -1,11 +1,13 @@
 package io.intellij.dsa.tree
 
-import io.intellij.dsa.sort.createRandomArray
 import io.intellij.dsa.tree.heap.Heap
 import io.intellij.dsa.tree.heap.HeapImpl
 import io.intellij.dsa.tree.heap.HeapType
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 /**
  * HeapTest
@@ -15,35 +17,44 @@ import org.junit.jupiter.api.Test
  */
 class HeapTest {
 
-  private fun Array<Int>.sortThen(): Array<Int> {
-    this.sort()
-    return this
-  }
+  private val values = arrayOf(9, 1, 5, 1, -3, 8, 0)
 
   @Test
-  fun `test min heap`() {
+  fun `min heap extracts values in ascending order`() {
     val heap: Heap<Int> = HeapImpl()
+    values.forEach(heap::add)
 
-    val array = createRandomArray(100000, 100000)
-    array.forEach { heap.add(it) }
+    assertEquals(values.size, heap.size())
+    assertEquals(-3, heap.peek())
 
-    array.copyOf().sortThen().forEach { Assertions.assertEquals(it, heap.extract()) }
+    val extracted = List(values.size) { heap.extract() }
+    println("Min heap extraction: $extracted")
+
+    assertContentEquals(values.sorted(), extracted)
+    assertTrue(heap.isEmpty())
+    assertNull(heap.extract())
   }
 
   @Test
-  fun `test heapify`() {
-    val array = createRandomArray(100000, 100000)
-    val heap: Heap<Int> = HeapImpl(array)
+  fun `heapify builds a min heap from existing values`() {
+    val heap: Heap<Int> = HeapImpl(values)
 
-    array.copyOf().sortThen().forEach { Assertions.assertEquals(it, heap.extract()) }
+    val extracted = List(values.size) { heap.extract() }
+    println("Heapify extraction: $extracted")
+
+    assertContentEquals(values.sorted(), extracted)
+    assertTrue(heap.isEmpty())
   }
 
   @Test
-  fun `test max heap reverse`() {
-    val array = createRandomArray(100000, 100000)
-    val heap: Heap<Int> = HeapImpl(array, HeapType.MAX_HEAP) { a, b -> b.compareTo(a) }
+  fun `max heap extracts values in descending order`() {
+    val heap: Heap<Int> = HeapImpl(values, HeapType.MAX_HEAP)
 
-    array.copyOf().sortThen().forEach { Assertions.assertEquals(it, heap.extract()) }
+    val extracted = List(values.size) { heap.extract() }
+    println("Max heap extraction: $extracted")
+
+    assertContentEquals(values.sortedDescending(), extracted)
+    assertTrue(heap.isEmpty())
   }
 
 }

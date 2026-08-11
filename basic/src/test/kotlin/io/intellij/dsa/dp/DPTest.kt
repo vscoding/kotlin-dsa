@@ -1,6 +1,7 @@
 package io.intellij.dsa.dp
 
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 /**
  * DPTest
@@ -11,8 +12,7 @@ import org.junit.jupiter.api.Test
 class DPTest {
 
   @Test
-  fun `test number triangles`() {
-
+  fun `number triangle returns the maximum path sum`() {
     NumberTriangles().apply {
       val triangles = """
                 5
@@ -23,9 +23,9 @@ class DPTest {
                 4 5 2 6 5
             """.trimIndent()
       val result = solution(triangles)
-      println("Maximum path sum: $result") // 应该输出最大路径和
+      println("Maximum path sum: $result")
+      assertEquals(30, result)
     }
-
   }
 
 }

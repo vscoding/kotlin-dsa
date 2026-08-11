@@ -2,6 +2,9 @@ package io.intellij.dsa.tree
 
 import io.intellij.dsa.tree.huffman.buildHuffmanTree
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 /**
  * HuffmanTest
@@ -11,15 +14,23 @@ import org.junit.jupiter.api.Test
 class HuffmanTest {
 
   @Test
-  fun `test build huffman tree`() {
+  fun `huffman tree represents every character with a prefix free code`() {
     val msg = "abbcccddddeeeeeffffff"
-    // msg 转成 char的计数
     val counts: Map<Char, Int> = msg.groupingBy { it }.eachCount()
+    val tree = buildHuffmanTree(counts)
 
-    buildHuffmanTree(counts).let {
-      it.printTree()
-      it.printEncodingTable()
-    }
+    tree.printTree()
+    tree.printEncodingTable()
+
+    val encodingTable = tree.getEncodingTable()
+    val codes = encodingTable.values.toList()
+
+    assertEquals(counts.size, tree.size())
+    assertEquals(counts.keys, encodingTable.keys)
+    assertEquals(msg.length, assertNotNull(tree.getRoot()).weight)
+    assertTrue(codes.indices.all { i ->
+      codes.indices.none { j -> i != j && codes[j].startsWith(codes[i]) }
+    })
   }
 
 }

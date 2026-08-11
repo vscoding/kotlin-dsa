@@ -1,8 +1,9 @@
 package io.intellij.dsa.tree
 
 import io.intellij.dsa.tree.trie.TrieUtils
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 /**
  * TrieTest
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.Test
 class TrieTest {
 
   @Test
-  fun `test string trie`() {
+  fun `domain trie supports exact and suffix matching`() {
     val cl = Thread.currentThread().contextClassLoader
     val input = cl.getResourceAsStream("trie/domain_apple.txt") ?: error("resource not found")
     val domainSegmentFunc = TrieUtils.segmentFunTpl("domain")
@@ -21,18 +22,19 @@ class TrieTest {
       println(it)
     }
 
-    val trie = TrieUtils.buildTrieFromTxtFile(input, domainSegmentFunc)
+    val trie = input.use { TrieUtils.buildTrieFromTxtFile(it, domainSegmentFunc) }
 
     println("trie size: ${trie.size()}")
 
-    Assertions.assertTrue(trie.contains("www.apple.com"))
-    Assertions.assertFalse(trie.contains("www.google.com"))
+    assertTrue(trie.size() > 0)
+    assertTrue(trie.contains("www.apple.com"))
+    assertFalse(trie.contains("www.google.com"))
 
-    Assertions.assertTrue(
+    assertTrue(
       trie.containsPartial("a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.s.t.u.v.w.x.y.z.www.apple.com"),
     )
 
-    Assertions.assertFalse(
+    assertFalse(
       trie.containsPartial("a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.s.t.u.v.w.x.y.z.apple.com"),
     )
   }

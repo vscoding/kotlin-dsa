@@ -11,7 +11,6 @@ interface BST<K : Comparable<K>, V> : KVOperator<K, V> {
    */
   fun getRoot(): BSTNode<K, V>?
 
-
   /**
    * Determines whether the binary search tree (BST) contains the specified key.
    *
@@ -83,22 +82,21 @@ interface BST<K : Comparable<K>, V> : KVOperator<K, V> {
   }
 
   fun <K : Comparable<K>, V> BSTNode<K, V>.preorder(action: (BSTNode<K, V>) -> Unit) {
-    action.apply { this }
-
+    action(this)
     getLeft()?.preorder(action)
     getRight()?.preorder(action)
   }
 
   fun <K : Comparable<K>, V> BSTNode<K, V>.inorder(action: (BSTNode<K, V>) -> Unit) {
     getLeft()?.inorder(action)
-    action.apply { this }
+    action(this)
     getRight()?.inorder(action)
   }
 
   fun <K : Comparable<K>, V> BSTNode<K, V>.postorder(action: (BSTNode<K, V>) -> Unit) {
     getLeft()?.postorder(action)
     getRight()?.postorder(action)
-    action.apply { this }
+    action(this)
   }
 
   fun <K : Comparable<K>, V> BSTNode<K, V>.bfs(action: (BSTNode<K, V>) -> Unit) {
@@ -106,11 +104,11 @@ interface BST<K : Comparable<K>, V> : KVOperator<K, V> {
     queue.add(this)
 
     while (queue.isNotEmpty()) {
-      val current = queue.removeFirst()
-      action(current)
+      val first = queue.removeFirst()
+      action(first)
 
-      current.getLeft()?.let { queue.addLast(it) }
-      current.getRight()?.let { queue.addLast(it) }
+      first.getLeft()?.let { queue.addLast(it) }
+      first.getRight()?.let { queue.addLast(it) }
     }
   }
 

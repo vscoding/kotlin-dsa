@@ -37,12 +37,12 @@ internal fun <K : Comparable<K>, V> getMin(node: BSTNode<K, V>?): BSTNode<K, V>?
 }
 
 internal fun <K : Comparable<K>, V> getMax(node: BSTNode<K, V>?): BSTNode<K, V>? {
-  return node?.getLeft()?.let { getMax(it) } ?: node
+  return node?.getRight()?.let { getMax(it) } ?: node
 }
 
 internal fun <K : Comparable<K>, V> printBST(root: BSTNode<K, V>?) {
   if (root == null) {
-    println("空树")
+    println("empty tree")
     return
   }
 

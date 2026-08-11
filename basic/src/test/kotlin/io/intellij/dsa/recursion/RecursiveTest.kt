@@ -3,6 +3,7 @@ package io.intellij.dsa.recursion
 import io.intellij.dsa.getLogger
 import org.junit.jupiter.api.Test
 import java.util.ArrayDeque
+import kotlin.test.assertEquals
 
 /**
  * RecursiveTest
@@ -36,10 +37,17 @@ class RecursiveTest {
   }
 
   @Test
-  fun `test fibonacci`() {
-    log.info("${fibonacciW(50)}")
+  fun `recursive and iterative fibonacci produce the same value`() {
+    val recursive = fibonacciR(10)
+    val iterative = fibonacciW(10)
 
+    log.info("fibonacciR(10) = $recursive")
+    log.info("fibonacciW(10) = $iterative")
+    log.info("${fibonacciW(50)}")
     log.info("${fibonacciW(100)}")
+
+    assertEquals(55, recursive)
+    assertEquals(recursive, iterative)
   }
 
   data class Node(val value: String, val children: List<Node>)
@@ -51,17 +59,20 @@ class RecursiveTest {
     }
   }
 
-  private fun traversalW(node: Node) {
+  private fun traversalW(node: Node): List<String> {
+    val visited = mutableListOf<String>()
     val queue = ArrayDeque<Node>().apply { add(node) }
     while (queue.isNotEmpty()) {
       val current = queue.removeFirst()
+      visited.add(current.value)
       log.info(current.value)
       queue.addAll(current.children)
     }
+    return visited
   }
 
   @Test
-  fun `test tree`() {
+  fun `iterative tree traversal visits nodes breadth first`() {
     val root = Node(
       "A",
       listOf(
@@ -81,6 +92,6 @@ class RecursiveTest {
         ),
       ),
     )
-    traversalW(root)
+    assertEquals(listOf("A", "B", "C", "D", "E", "F", "G"), traversalW(root))
   }
 }

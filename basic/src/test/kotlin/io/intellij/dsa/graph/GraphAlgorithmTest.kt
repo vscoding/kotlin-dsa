@@ -6,8 +6,10 @@ import io.intellij.dsa.graph.compute.Dijkstra
 import io.intellij.dsa.graph.compute.Mst
 import io.intellij.dsa.graph.compute.TopoSort
 import io.intellij.dsa.graph.compute.Traverse
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 /**
  * GraphAlgorithmTest
@@ -27,25 +29,39 @@ class GraphAlgorithmTest {
         """.trimIndent()
 
   @Test
-  fun `test graph traverse dfs`() {
+  fun `depth first traversal visits every vertex once`() {
+    val visited = mutableListOf<String>()
     Traverse(
-      buildGraph(traverseGraphText, directed = false, weighted = true),
-      { println("Vertex: ${it.name}") },
+      buildGraph(traverseGraphText, directed = false, weighted = true, type = GraphType.SPARSE),
+      {
+        visited.add(it.name)
+        println("Vertex: ${it.name}")
+      },
       { println("Edge: ${it.from.name} -> ${it.to.name}, weight: ${it.weight}") },
     ).dfs()
+
+    assertEquals(setOf("A", "B", "C", "D", "E", "F", "G"), visited.toSet())
+    assertEquals(visited.size, visited.distinct().size)
   }
 
   @Test
-  fun `test graph traverse bfs`() {
+  fun `breadth first traversal visits every vertex once`() {
+    val visited = mutableListOf<String>()
     Traverse(
-      buildGraph(traverseGraphText, directed = false, weighted = true),
-      { println("Vertex: ${it.name}") },
+      buildGraph(traverseGraphText, directed = false, weighted = true, type = GraphType.SPARSE),
+      {
+        visited.add(it.name)
+        println("Vertex: ${it.name}")
+      },
       { println("Edge: ${it.from.name} -> ${it.to.name}, weight: ${it.weight}") },
     ).bfs()
+
+    assertEquals(setOf("A", "B", "C", "D", "E", "F", "G"), visited.toSet())
+    assertEquals(visited.size, visited.distinct().size)
   }
 
   @Test
-  fun `test graph components`() {
+  fun `components distinguish connected and disconnected vertices`() {
     val result = Components(
       buildGraph(
         """)
@@ -56,17 +72,18 @@ class GraphAlgorithmTest {
                 E F 1
                 F G 1
             """.trimIndent(),
-        directed = false, weighted = true,
+        directed = false, weighted = true, type = GraphType.SPARSE,
       ),
     ).compute()
 
     println("Component Count: ${result.componentCount}")
 
-    Assertions.assertTrue(result.hasPath("A", "C"))
-    Assertions.assertFalse(result.hasPath("A", "G"))
+    assertEquals(2, result.componentCount)
+    assertTrue(result.hasPath("A", "C"))
+    assertFalse(result.hasPath("A", "G"))
   }
 
-  val mstGraphText = """
+  private val mstGraphText = """
             0 1 4
             0 5 8
             1 5 11
@@ -80,22 +97,33 @@ class GraphAlgorithmTest {
             """.trimIndent()
 
   @Test
-  fun `test graph mst lazy prim`() {
-    Mst(buildGraph(mstGraphText, directed = false, weighted = true))
-      .lazyPrim().printMst()
+  fun `lazy prim builds the expected minimum spanning tree`() {
+    val graph = buildGraph(mstGraphText, directed = false, weighted = true, type = GraphType.SPARSE)
+    val result = Mst(graph).lazyPrim()
+
+    result.printMst()
+
+    assertEquals(6, result.getEdgeCount())
+    assertTrue(result.isConnected(graph.getVertexesNum()))
+    assertEquals(27.0, result.totalWeight)
   }
 
   @Test
-  fun `test graph mst kruskal`() {
-    Mst(buildGraph(mstGraphText, directed = false, weighted = true))
-      .kruskal().printMst()
+  fun `kruskal builds the expected minimum spanning tree`() {
+    val graph = buildGraph(mstGraphText, directed = false, weighted = true, type = GraphType.SPARSE)
+    val result = Mst(graph).kruskal()
+
+    result.printMst()
+
+    assertEquals(6, result.getEdgeCount())
+    assertTrue(result.isConnected(graph.getVertexesNum()))
+    assertEquals(27.0, result.totalWeight)
   }
 
   @Test
-  fun `test graph topo sort kahn`() {
-    val sort = TopoSort(
-      buildGraph(
-        """
+  fun `kahn places every source before its destinations`() {
+    val graph = buildGraph(
+      """
                         0 1 1
                         0 5 1
                         0 6 1
@@ -111,17 +139,21 @@ class GraphAlgorithmTest {
                         9 11 1
                         9 12 1
                         11 12 1
-        """.trimIndent(),
-        directed = true, weighted = false,
-      ),
-    ).kahn()
+      """.trimIndent(),
+      directed = true, weighted = false, type = GraphType.SPARSE,
+    )
+    val sort = TopoSort(graph).kahn()
 
     sort.printTopoSort()
 
+    assertTrue(sort.isValid(graph.getVertexesNum()))
+    graph.getEdges().forEach { edge ->
+      assertTrue(sort.getPosition(edge.from.name) < sort.getPosition(edge.to.name))
+    }
   }
 
   @Test
-  fun `test graph dijkstra`() {
+  fun `dijkstra computes shortest routes from the source`() {
     val graph = """
             A B 3
             A C 1
@@ -134,7 +166,7 @@ class GraphAlgorithmTest {
             B F 8
             """.trimIndent()
 
-    val result = Dijkstra(buildGraph(graph, directed = true, weighted = true))
+    val result = Dijkstra(buildGraph(graph, directed = true, weighted = true, type = GraphType.SPARSE))
       .compute("A", null)
 
     listOf("B", "C", "D", "E", "F").map { v ->
@@ -143,11 +175,15 @@ class GraphAlgorithmTest {
       result.printRoutes(route)
     }
 
+    assertEquals(
+      mapOf("A" to 0.0, "B" to 2.0, "C" to 1.0, "D" to 5.0, "E" to 3.0, "F" to 4.0),
+      result.getAllDistances(),
+    )
+    assertEquals(listOf("A-C", "C-E", "E-F"), result.getRoutes("F").map { "${it.from.name}-${it.to.name}" })
   }
 
-
   @Test
-  fun `test graph cycle analyzer shared point`() {
+  fun `cycle analyzer finds cycles that share a vertex`() {
     val analysis = CycleAnalyzer(
       buildGraph(
         """
@@ -158,17 +194,21 @@ class GraphAlgorithmTest {
             D E 1
             E C 1
             """.trimIndent(),
-        directed = true, weighted = true,
+        directed = true, weighted = true, type = GraphType.SPARSE,
       ),
     ).findCycles()
 
     analysis.printCycles()
 
-    Assertions.assertEquals(2, analysis.cycles.size)
+    assertEquals(2, analysis.cycles.size)
+    assertEquals(
+      setOf(setOf("A", "B", "C"), setOf("C", "D", "E")),
+      analysis.cycles.map { cycle -> cycle.map { it.name }.toSet() }.toSet(),
+    )
   }
 
   @Test
-  fun `test graph cycle analyzer shared edge`() {
+  fun `cycle analyzer finds cycles that share an edge`() {
     val analysis = CycleAnalyzer(
       buildGraph(
         """
@@ -178,13 +218,17 @@ class GraphAlgorithmTest {
             D A 1
             B D 1
             """.trimIndent(),
-        directed = true, weighted = true,
+        directed = true, weighted = true, type = GraphType.SPARSE,
       ),
     ).findCycles()
 
     analysis.printCycles()
 
-    Assertions.assertEquals(2, analysis.cycles.size)
+    assertEquals(2, analysis.cycles.size)
+    assertEquals(
+      setOf(setOf("A", "B", "C", "D"), setOf("A", "B", "D")),
+      analysis.cycles.map { cycle -> cycle.map { it.name }.toSet() }.toSet(),
+    )
   }
 
 }

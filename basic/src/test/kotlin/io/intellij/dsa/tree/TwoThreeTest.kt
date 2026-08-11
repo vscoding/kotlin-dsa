@@ -1,8 +1,9 @@
 package io.intellij.dsa.tree
 
 import io.intellij.dsa.tree.twothree.sample.TwoThreeTree
-import org.junit.jupiter.api.Assertions
-import kotlin.test.Test
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 /**
  * TwoThreeTreeTest
@@ -13,31 +14,31 @@ import kotlin.test.Test
 class TwoThreeTest {
 
   @Test
-  fun `test two three tree inorder`() {
-    TwoThreeTree().apply {
-      // 10, 20, 5, 15, 30, 25, 35
-      insert(10)
-      insert(20)
-      insert(5)
-      insert(15)
-      insert(30)
-      insert(25)
-      insert(35)
-    }.inorder()
+  fun `sample two three tree prints its inorder traversal`() {
+    assertDoesNotThrow {
+      TwoThreeTree().apply {
+        listOf(10, 20, 5, 15, 30, 25, 35).forEach(::insert)
+      }.inorder()
+    }
   }
 
   @Test
-  fun `test two tree tree insert`() {
+  fun `two three tree traverses inserted entries in key order`() {
     val tree = TreeBuilder.buildTTTree<Int, String>().apply {
       for (i in 1..9) {
         this.insert(i, "value-$i")
       }
     }
-    Assertions.assertEquals(9, tree.size())
+    val traversal = mutableListOf<Pair<Int, String>>()
 
     println("Inorder Traversal:")
-    tree.inorder { key, value -> println("($key, $value)") }
+    tree.inorder { key, value ->
+      traversal.add(key to value)
+      println("($key, $value)")
+    }
 
+    assertEquals(9, tree.size())
+    assertEquals((1..9).map { it to "value-$it" }, traversal)
   }
 
 }

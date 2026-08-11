@@ -1,7 +1,9 @@
 package io.intellij.dsa.uf
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 /**
  * UnionFindTest
@@ -10,65 +12,43 @@ import org.junit.jupiter.api.Test
  * @since 2025-05-31
  */
 class UnionFindTest {
-  val a = Node(1, "a")
-  val b = Node(2, "b")
-  val c = Node(3, "c")
-  val d = Node(4, "d")
-  val e = Node(5, "e")
-  val f = Node(6, "f")
+  private val a = Node(1, "a")
+  private val b = Node(2, "b")
+  private val c = Node(3, "c")
+  private val d = Node(4, "d")
+  private val e = Node(5, "e")
+  private val f = Node(6, "f")
 
   @Test
-  fun `test indexed union find`() {
-    val uf: UnionFind<Node> = IndexedUnionFind(Node::id)
-
-    uf.union(a, b)
-    uf.union(b, c)
-
-    uf.union(d, e)
-    uf.union(e, f)
-
-    Assertions.assertTrue(uf.isConnected(a, c))
-    Assertions.assertFalse(uf.isConnected(a, d))
-
-    uf.union(a, f)
-    Assertions.assertTrue(uf.isConnected(c, d))
-
+  fun `indexed union find connects disjoint groups`() {
+    assertUnionFind(IndexedUnionFind(Node::id))
   }
 
   @Test
-  fun `test tree like union find`() {
-    val uf: UnionFind<Node> = TreeUnionFind(Comparator.comparingInt(Node::id))
-
-    uf.union(a, b)
-    uf.union(b, c)
-
-    uf.union(d, e)
-    uf.union(e, f)
-
-    Assertions.assertTrue(uf.isConnected(a, c))
-    Assertions.assertFalse(uf.isConnected(a, d))
-
-    uf.union(a, f)
-    Assertions.assertTrue(uf.isConnected(c, d))
-
+  fun `tree union find connects disjoint groups`() {
+    assertUnionFind(TreeUnionFind(Comparator.comparingInt(Node::id)))
   }
 
   @Test
-  fun `test tree like union find by id`() {
-    val uf: UnionFind<Node> = TreeIdUnionFind({ it.id })
+  fun `tree id union find connects disjoint groups`() {
+    assertUnionFind(TreeIdUnionFind(Node::id))
+  }
 
+  private fun assertUnionFind(uf: UnionFind<Node>) {
     uf.union(a, b)
     uf.union(b, c)
-
     uf.union(d, e)
     uf.union(e, f)
 
-    Assertions.assertTrue(uf.isConnected(a, c))
-    Assertions.assertFalse(uf.isConnected(a, d))
+    assertEquals(6, uf.size())
+    assertTrue(uf.isConnected(a, c))
+    assertFalse(uf.isConnected(a, d))
 
     uf.union(a, f)
-    Assertions.assertTrue(uf.isConnected(c, d))
+    assertTrue(uf.isConnected(c, d))
 
+    uf.clear()
+    assertTrue(uf.isEmpty())
   }
 
   data class Node(val id: Int, val name: String)
